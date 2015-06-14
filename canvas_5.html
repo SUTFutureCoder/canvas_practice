@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src='jquery.min.js' ></script>
+        <style>
+            *{margin: 0; padding: 0;}
+            html, body{height: 100%; width: 100%;}
+            canvas{display: block;}
+        </style>
+        <script>
+            $(document).ready(function(){
+            
+                var canvas = $("#myCanvas");
+                var context = canvas.get(0).getContext('2d');
+                
+                context.beginPath();
+                context.moveTo(100, 50);
+                context.lineTo(150, 150);
+                context.lineTo(50, 150);
+                context.closePath();
+                context.stroke();
+                context.fill();
+                
+                context.lineWidth = 5;
+                context.beginPath();
+                context.moveTo(50, 250);
+                context.quadraticCurveTo(250, 100, 450, 250);
+                context.stroke();
+                
+                context.lineWidth = 5;
+                context.beginPath();
+                context.moveTo(150, 250);
+                context.bezierCurveTo(150, 50, 350, 450, 450, 250);
+                context.stroke();
+                
+                var dataURL = canvas.get(0).toDataURL();
+                alert(dataURL);
+                
+            });
+        </script>
+    </head>
+    <body>
+        <canvas id='myCanvas' width="500" height="500">
+            
+        </canvas>
+    </body>
+</html>
