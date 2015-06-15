@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src='jquery.min.js' ></script>
+        <style>
+            *{margin: 0; padding: 0;}
+            html, body{height: 100%; width: 100%;}
+            canvas{display: block;}
+        </style>
+        <script>
+            $(document).ready(function(){
+            
+                var canvas = $("#myCanvas");
+                var context = canvas.get(0).getContext('2d');
+                
+                var image = new Image();
+                image.src = 'img/ffb88322720e0cf3790a7dab0946f21fbc09aacf.jpg';
+                
+                $(image).load(function(){
+                    context.drawImage(image, 0, 0, 500, 333);
+                });
+                
+                canvas.click(function(e){
+                    //click方法中的回调函数会传递给一个包含事件信息的参数e。包含了相对于整个浏览器窗口的鼠标点击位置
+                    //的x, y坐标，它可用来处理画布上发生的点击信息。
+                    var canvasOffset = canvas.offset() ;
+                    var canvasX = Math.floor(e.pageX - canvasOffset.left);
+                    var canvasY = Math.floor(e.pageY - canvasOffset.top);
+//                   alert(canvasX + ',' + canvasY);
+                    var imageData = context.getImageData(canvasX, canvasY, 1, 1);
+                    var pixel = imageData.data;
+                    var pixelColor = "rgba(" + pixel[0] + ", " + pixel[1] + ", " + pixel[2] + ", " + pixel[3] + ")";
+                   
+                    $("body").css("backgroundColor", pixelColor);
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+        <canvas id='myCanvas' width="500" height="500">
+            
+        </canvas>
+    </body>
+</html>
