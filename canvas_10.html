@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+马赛克
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src='jquery.min.js' ></script>
+        <style>
+            *{margin: 0; padding: 0;}
+            html, body{height: 100%; width: 100%;}
+            canvas{display: block;}
+        </style>
+        <script>
+            $(document).ready(function(){
+            
+                var canvas = $("#myCanvas");
+                var context = canvas.get(0).getContext('2d');
+                var imageData = context.createImageData(500, 500);
+                var pixels = imageData.data;
+                
+                var numTileRows = 4;
+                var numTileCols = 4;
+
+                var tileWidth = imageData.width / numTileCols;
+                var tileHeight = imageData.width / numTileRows;
+                for (var r = 0; r < numTileRows; r++){
+                    //遍历每一行的块
+                     for (var c = 0; c < numTileCols; c++){
+                         //遍历当前行的每一列块
+                         
+                         //为每个块设置像素的颜色值
+                         var red = Math.floor(Math.random() * 255);
+                         var green = Math.floor(Math.random() * 255);
+                         var blue = Math.floor(Math.random() * 255);
+                         for (var tr = 0; tr < tileHeight; tr++){
+                             //当前访问块的像素行
+                             for (var tc = 0; tc < tileWidth; tc++){
+                                 //像素列
+                                 var trueX = (c * tileWidth) + tc;
+                                 var trueY = (r * tileHeight) + tr;
+                                 var pos = (trueY * (imageData.width * 4)) + (trueX * 4);
+
+                                 pixels[pos] = red;
+                                 pixels[pos + 1] = green;
+                                 pixels[pos + 2] = blue;
+                                 pixels[pos + 3] = 255;
+
+                             }
+                         }
+                     }
+                 } 
+                
+                
+                
+                context.putImageData(imageData, 0, 0);
+            });
+        </script>
+    </head>
+    <body>
+        <canvas id='myCanvas' width="500" height="500">
+            
+        </canvas>
+    </body>
+</html>
