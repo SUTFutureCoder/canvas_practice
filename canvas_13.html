@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+动画循环
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src='jquery.min.js' ></script>
+        <style>
+            *{margin: 0; padding: 0;}
+            html, body{height: 100%; width: 100%;}
+            canvas{display: block;}
+        </style>
+        <script>
+            $(document).ready(function(){
+                var playAnimate = true;
+                var startButton = $("#startAnimation");
+                var stopButton = $("#stopAnimation");
+                
+                startButton.hide();
+                startButton.click(function(){
+                    $(this).hide();
+                    stopButton.show();
+                    
+                    playAnimate = true;
+                    animate();
+                });
+                
+                stopButton.click(function(){
+                    $(this).hide();
+                    startButton.show();
+                    
+                    playAnimate = false;
+                    
+                });
+                
+                
+                var canvas = $("#myCanvas");
+                var context = canvas.get(0).getContext("2d");
+                
+                var canvasWidth = canvas.width();
+                var canvasHeight = canvas.height();
+                
+                
+                var x = 0;
+                
+                function animate(){
+                    
+                    if (playAnimate){
+                        x++;
+                        context.clearRect(0, 0, canvasWidth, canvasHeight);
+                        context.fillRect(x, 250, 10, 10);
+                        setTimeout(animate, 33);
+                    }
+                }
+                
+                animate();
+                
+                
+                
+            });
+        </script>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="500" height="281">
+        </canvas>   
+        <div>
+            <button id="startAnimation">Play</button>
+            <button id="stopAnimation">Stop</button>
+        </div>
+    </body>
+    
+</html>
